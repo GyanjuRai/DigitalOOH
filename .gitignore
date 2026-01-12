@@ -1,0 +1,25 @@
+# Visual Studio Code files
+*.vs/
+*.vscode/
+
+#Build files
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+
+# Environment files
+.env
+.env.*
+
+#Secrets
+appsettings.Development.json
+
+# System files
+.DS_Store
+Thumbs.db
+
+# --- IGNORE ---
+/storage
