@@ -10,7 +10,7 @@
         public int AccessTokenClockSkewMin { get; set; } = 4;
 
     }
-    public record JwtResult
+    public record JwtResponse
     {
         public string? Token { get; init; }
         public DateTime? ExpireAt { get; init; }
