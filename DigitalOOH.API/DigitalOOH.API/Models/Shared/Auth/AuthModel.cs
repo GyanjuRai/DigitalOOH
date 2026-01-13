@@ -2,9 +2,9 @@
 {
     public record JwtConfig
     {
-        public string SecretKey { get; init; } = "";
-        public string Issuer { get; init; } = "";
-        public string Audience { get; init; } = "";
+        public string SecretKey { get; set; } = "";
+        public string Issuer { get; set; } = "";
+        public string Audience { get; set; } = "";
 
         public int AccessTokenExpirationMin { get; set; } = 60;
         public int AccessTokenClockSkewMin { get; set; } = 4;
@@ -12,7 +12,7 @@
     }
     public record JwtResponse
     {
-        public string? Token { get; init; }
-        public DateTime? ExpireAt { get; init; }
+        public string? Token { get; set; }
+        public DateTime? ExpireAt { get; set; }
     }
 }

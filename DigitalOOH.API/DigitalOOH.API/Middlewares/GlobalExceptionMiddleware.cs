@@ -29,7 +29,7 @@ namespace DigitalOOH.API.Middlewares
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unhandle Exception");
+                _logger.LogError(ex, "==================================> : Unhandle Exception");
 
                 await HandleExceptionAsync(context, ex);
             }

@@ -1,4 +1,6 @@
-﻿using DigitalOOH.API.Interfaces.Shared.Auth;
+﻿using DigitalOOH.API.Interfaces.Shared.Account;
+using DigitalOOH.API.Interfaces.Shared.Auth;
+using DigitalOOH.API.Services.Shared.Account;
 using DigitalOOH.API.Services.Shared.Auth;
 
 namespace DigitalOOH.API.Middlewares
@@ -7,7 +9,8 @@ namespace DigitalOOH.API.Middlewares
     {
         public static IServiceCollection AddCoreServices(this IServiceCollection services)
         {
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAuthService, AuthService>()
+                .AddScoped<IAccountService, AcountService>();
 
             return services;
         }

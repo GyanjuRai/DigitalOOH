@@ -118,7 +118,7 @@ builder.Services.AddSwaggerGen(options =>
     });
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+    //options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true); # TODO: At the end check the option to generate XML file and uncomment this line of code 
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
