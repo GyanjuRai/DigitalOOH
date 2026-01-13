@@ -24,8 +24,8 @@
     <Folder Include="Controllers\Application\" />
     <Folder Include="Controllers\Shared\" />
     <Folder Include="Interfaces\Application\" />
-    <Folder Include="Interfaces\Shared\" />
     <Folder Include="Models\Application\" />
+    <Folder Include="Services\Application\" />
   </ItemGroup>
 
 </Project>
