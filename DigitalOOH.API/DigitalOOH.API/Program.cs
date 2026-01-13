@@ -1,3 +1,4 @@
+using DigitalOOH.API.Const;
 using DigitalOOH.API.DataAccess.DBContext;
 using DigitalOOH.API.Middlewares;
 using DigitalOOH.API.Models.Shared.Auth;
@@ -29,7 +30,7 @@ builder.Services.AddDbContext<DigitalOOHDbContext>(options => options.UseSqlServ
 string[] AllowedOrigins = (builder.Configuration["AppSettings:AllowedOrigins"] ?? "").Split(","); // allowed array of origins from configuration 
 builder.Services.AddCors(options =>
 {
-options.AddPolicy("CorsPolicy", builder =>
+options.AddPolicy(AppData.PolicyName, builder =>
     {
         builder.AllowAnyHeader()
                 .AllowAnyMethod();
@@ -111,9 +112,9 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Version = "v1",
-        Title = "Digital OOH API",
-        Description = "Digital Out-Of-Home Advertising Platform API"
+        Version = AppData.ApiVersion,
+        Title = AppData.ApiTitle,
+        Description = AppData.ApiDescription
     });
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -154,7 +155,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("CorsPolicy");
+app.UseCors(AppData.PolicyName);
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
