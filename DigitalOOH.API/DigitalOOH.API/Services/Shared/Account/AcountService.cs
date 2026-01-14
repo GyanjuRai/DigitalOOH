@@ -57,8 +57,7 @@ namespace DigitalOOH.API.Services.Shared.Account
                 {
                     Id = user.Id,
                     Email = user.Email,
-                    Token = accessToken.Token,
-                    ExpireAt = accessToken.ExpireAt
+                    Token = accessToken.Token
 
                 };
             }

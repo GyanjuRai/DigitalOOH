@@ -4,6 +4,7 @@ namespace DigitalOOH.API.Models.Shared.Account
 {
     public record UserLoginParam
     {
+        [EmailAddress]
         public required string Email { get; set; }
         public required string Password { get; set; }
     }
@@ -13,7 +14,9 @@ namespace DigitalOOH.API.Models.Shared.Account
         [EmailAddress]
         public string? Email { get; set; }
         public string? Token { get; set; }
-        public DateTime? ExpireAt { get; set; }
     }
-
+    public record LoginResponse
+    {
+        public string? Token { get; set; }
+    }
 }

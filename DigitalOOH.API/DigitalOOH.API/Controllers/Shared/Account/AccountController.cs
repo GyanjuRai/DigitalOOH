@@ -57,18 +57,22 @@ namespace DigitalOOH.API.Controllers.Shared.Account
             {
                 return Unauthorized(new ResponseModel<object> 
                 { 
-                    Type = ResponseEnum.Unauthorized.ToString(), 
+                    Type = ResponseEnum.InvalidCredential.ToString(), 
                     Message = "Invalid credential", 
                     Data = null
                 });
             }
             else
             {
-                return Ok(new ResponseModel<UserInfoResponse> 
+                LoginResponse res = new LoginResponse
+                {
+                    Token = response.Token,
+                };
+                return Ok(new ResponseModel<LoginResponse> 
                 {
                     Type = ResponseEnum.Sucess.ToString(),
                     Message = "Login sucess",
-                    Data = response
+                    Data = res
                 });
             }
         }
