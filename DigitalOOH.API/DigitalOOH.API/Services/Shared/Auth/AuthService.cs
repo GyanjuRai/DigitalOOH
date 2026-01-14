@@ -35,7 +35,6 @@ namespace DigitalOOH.API.Services.Shared.Auth
             return new JwtResponse
             {
                 Token = accessToken,
-                ExpireAt = DateTime.UtcNow.AddMinutes(_jwtConfig.AccessTokenExpirationMin)
             };
         }
     }

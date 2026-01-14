@@ -9,7 +9,7 @@ namespace DigitalOOH.API.Models.Shared.Helper
         private static readonly int HashSize = 20; // 160 bit
         private static readonly int Iterations = 10000;
 
-        private static string EncryptData(string value)
+        private static string EncryptData(string value) // Copy this code and run in online c# IDE use the generated password in the database table.
         {
             byte[] salt;
             RandomNumberGenerator.Fill(salt = new byte[saltSize]);
