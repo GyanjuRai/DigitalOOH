@@ -22,4 +22,5 @@ appsettings.Development.json
 Thumbs.db
 
 # --- IGNORE ---
-/storage
+storage/
+Const/
