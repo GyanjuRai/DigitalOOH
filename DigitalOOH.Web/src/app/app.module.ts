@@ -13,6 +13,7 @@ import { HttpErrorInterceptor } from './core/interceptor/http-interceptor';
 import { GlobalErrorHandler } from './core/error-handler/global-errorhandler';
 import { SomethingWrongComponent } from './errors/something-wrong/something-wrong.component';
 import { NonFoundComponent } from './errors/non-found/non-found.component';
+import { LoginModule } from './shared/login/login.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { NonFoundComponent } from './errors/non-found/non-found.component';
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     HttpClientModule,
+    LoginModule,
   ],
   providers: [
     {

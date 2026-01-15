@@ -1,4 +1,120 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  /* ===== Primary Brand Colors ===== */
+  --meta-primary: #1877F2;      /* Meta Blue (buttons, links, highlights) */
+  --meta-primary-dark: #145DBF; /* Hover / active state */
+  --meta-primary-light: #E7F0FF;/* Light background accents */
+
+  /* ===== Background Colors ===== */
+  --meta-bg-main: #F0F2F5;      /* Main app background */
+  --meta-bg-card: #FFFFFF;     /* Cards, panels, modals */
+  --meta-bg-hover: #F5F6F7;    /* Hover state for lists */
+
+  /* ===== Text Colors ===== */
+  --meta-text-primary: #050505; /* Main text */
+  --meta-text-secondary: #65676B; /* Secondary / muted text */
+  --meta-text-disabled: #8A8D91; /* Disabled text */
+
+  /* ===== Border & Divider ===== */
+  --meta-border: #DADDE1;       /* Borders and dividers */
+
+  /* ===== Status Colors ===== */
+  --meta-success: #42B72A;      /* Success / active */
+  --meta-warning: #F7B928;      /* Warning */
+  --meta-danger: #E41E3F;       /* Error / danger */
+}
+
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    background-color: var(--meta-bg-main) !important;
+}
+
+/* =========================================
+   GLOBAL META STYLE – MAT FORM FIELD
+   ========================================= */
+
+.mat-mdc-form-field {
+  width: 100%;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* Background & rounding */
+.mat-mdc-form-field .mat-mdc-text-field-wrapper {
+  background-color: #FFFFFF !important;
+  border-radius: 6px;
+}
+
+/* Fix infix width (critical) */
+.mat-mdc-form-field .mat-mdc-form-field-infix {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* MDC hides outline via opacity — force it visible */
+.mat-mdc-form-field .mdc-notched-outline {
+  opacity: 1 !important;
+}
+
+.mat-mdc-form-field
+.mdc-notched-outline__leading,
+.mat-mdc-form-field
+.mdc-notched-outline__notch,
+.mat-mdc-form-field
+.mdc-notched-outline__trailing {
+  border-color: var(--meta-border) !important;
+  border-width: 1px !important;
+}
+
+.mat-mdc-form-field.mat-focused
+.mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused
+.mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused
+.mdc-notched-outline__trailing {
+  border-color: var(--meta-primary) !important;
+  border-width: 2px !important;
+}
+
+.mat-mdc-form-field.mat-form-field-invalid:not(.mat-focused)
+.mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-form-field-invalid:not(.mat-focused)
+.mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-form-field-invalid:not(.mat-focused)
+.mdc-notched-outline__trailing {
+  border-color: var(--meta-danger) !important;
+  border-width: 1px !important;
+}
+
+/* Input text */
+.mat-mdc-form-field input.mat-mdc-input-element {
+  color: var(--meta-text-primary) !important;
+  font-size: 14px;
+}
+
+/* Placeholder */
+.mat-mdc-form-field input::placeholder {
+  color: var(--meta-text-secondary) !important;
+  opacity: 1;
+}
+
+/* Floating label (default) */
+.mat-mdc-form-field .mat-mdc-floating-label {
+  color: var(--meta-text-secondary);
+}
+
+/* Floating label (focused) */
+.mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: var(--meta-primary);
+}
+
+.mat-mdc-form-field-error {
+  color: var(--meta-danger);
+  font-size: 12px;
+}
+
+.mat-mdc-form-field .mdc-line-ripple {
+  display: none;
+}
