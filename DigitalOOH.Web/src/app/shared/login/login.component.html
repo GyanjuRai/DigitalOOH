@@ -29,16 +29,28 @@
       <mat-form-field appearance="outline" class="meta-input">
         <input
           matInput
-          type="password"
+          [type]="hidePassword ? 'password': 'text'"
           placeholder="Password"
           formControlName="password"
         />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword = !hidePassword"
+          aria-label="Toggle password visibility"
+        >
+          <mat-icon>
+            {{ hidePassword ? 'visibility' : 'visibility_off' }}
+          </mat-icon>
+        </button>
+
         @if (formGroup.get('password')?.hasError('required')) {
           <mat-error>Password is <strong>required</strong></mat-error>
         }
       </mat-form-field>
 
-      <button mat-flat-button class="meta-login-btn">
+      <button mat-flat-button class="meta-login-btn" (click)="login()">
         Log In
       </button>
 

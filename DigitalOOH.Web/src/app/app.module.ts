@@ -7,13 +7,14 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { appRoutes } from './app.routing';
 import { AppConst } from './app.const';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HttpErrorInterceptor } from './core/interceptor/http-interceptor';
 import { GlobalErrorHandler } from './core/error-handler/global-errorhandler';
 import { SomethingWrongComponent } from './errors/something-wrong/something-wrong.component';
 import { NonFoundComponent } from './errors/non-found/non-found.component';
 import { LoginModule } from './shared/login/login.module';
+import { RequestInterceptor } from './core/interceptor/request-interceptor';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { LoginModule } from './shared/login/login.module';
     LoginModule,
   ],
   providers: [
+    AppConst,
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandler
@@ -38,6 +40,12 @@ import { LoginModule } from './shared/login/login.module';
       provide: APP_INITIALIZER,
       useFactory: (appConst: AppConst) => () => appConst.loadConfig(),
       deps: [AppConst],
+      multi: true
+    },
+    provideHttpClient(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
       multi: true
     },
     {

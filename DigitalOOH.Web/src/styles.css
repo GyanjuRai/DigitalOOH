@@ -47,10 +47,19 @@ body {
   border-radius: 6px;
 }
 
-/* Fix infix width (critical) */
-.mat-mdc-form-field .mat-mdc-form-field-infix {
-  width: 100% !important;
-  min-width: 0 !important;
+.mat-mdc-form-field-icon-suffix .mat-icon {
+  font-size: 20px;
+  color: var(--meta-text-secondary);
+}
+
+/* Hover */
+.mat-mdc-form-field-icon-suffix button:hover .mat-icon {
+  color: var(--meta-primary);
+}
+
+/* Remove button background */
+.mat-mdc-icon-button {
+  background: transparent;
 }
 
 /* MDC hides outline via opacity — force it visible */

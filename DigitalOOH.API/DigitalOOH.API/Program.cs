@@ -27,24 +27,26 @@ builder.Services.AddDbContext<DigitalOOHDbContext>(options => options.UseSqlServ
  * ===============================
  */
  
-string[] AllowedOrigins = (builder.Configuration["AppSettings:AllowedOrigins"] ?? "").Split(","); // allowed array of origins from configuration 
-builder.Services.AddCors(options =>
-{
+string[] AllowedOrigins = (builder.Configuration["AppSettings:Origins"] ?? "").Split(","); // allowed array of origins from configuration 
+builder.Services.AddCors(options => {
 options.AddPolicy(AppData.PolicyName, builder =>
     {
-        builder.AllowAnyHeader()
-                .AllowAnyMethod();
 
         if (AllowedOrigins.Length.Equals(0)) return;
 
         if(AllowedOrigins.Contains("*"))
         {
-            builder.SetIsOriginAllowed(option => true);
+            builder.SetIsOriginAllowed(option => true)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
         }
         else 
         {
             builder.WithOrigins(AllowedOrigins)
-                    .AllowCredentials();    // FOR: Future if we want to allow cookies or authentication headers
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();   
         }
     });
 });
