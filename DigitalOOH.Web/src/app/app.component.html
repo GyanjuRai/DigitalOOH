@@ -1,1 +1,2 @@
-<router-outlet></router-outlet>
+<something-went-wrong *ngIf="errorState.hasError"></something-went-wrong>
+<router-outlet *ngIf="!errorState.hasError"></router-outlet>

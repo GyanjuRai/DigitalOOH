@@ -11,10 +11,15 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HttpErrorInterceptor } from './core/interceptor/http-interceptor';
 import { GlobalErrorHandler } from './core/error-handler/global-errorhandler';
+import { SomethingWrongComponent } from './errors/something-wrong/something-wrong.component';
+import { NonFoundComponent } from './errors/non-found/non-found.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SomethingWrongComponent,
+    NonFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,6 +28,10 @@ import { GlobalErrorHandler } from './core/error-handler/global-errorhandler';
     HttpClientModule,
   ],
   providers: [
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: (appConst: AppConst) => () => appConst.loadConfig(),
@@ -33,10 +42,6 @@ import { GlobalErrorHandler } from './core/error-handler/global-errorhandler';
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true
-    },
-    {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandler
     },
     provideAnimationsAsync()
   ],

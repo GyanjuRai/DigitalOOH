@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ErrorStateHandlerService } from './core/services/errorstate.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'DigitalOOH.Web';
+
+  constructor(public errorState: ErrorStateHandlerService) {}
+
+  
 }
