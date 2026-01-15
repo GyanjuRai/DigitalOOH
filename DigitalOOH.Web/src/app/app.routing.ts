@@ -2,6 +2,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from "@angular/ro
 import { AuthGuardService } from "./core/guards/auth-guard.service";
 import { inject } from "@angular/core";
 import { LoginComponent } from "./shared/login/login.component";
+import { NonFoundComponent } from "./errors/non-found/non-found.component";
 
 export const appRoutes: Routes = [
     {
@@ -19,11 +20,7 @@ export const appRoutes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'error',
-        loadChildren: () => import('./errors/errors.module').then(m => m.ErrorModule)
-    },
-    {
         path: '**',
-        redirectTo: 'error/notfound'
+        component: NonFoundComponent
     }
 ]

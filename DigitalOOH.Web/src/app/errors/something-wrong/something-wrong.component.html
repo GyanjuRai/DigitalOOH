@@ -1,0 +1,12 @@
+<div class="somethingwrong-wrapper">
+  <div class="somethingwrong-card">
+    <h6 class="somethingwrong-title">An error occured</h6>
+    <p class="somethingwrong-message">
+      The requested resource could not be found on the server.
+    </p>
+
+    <button *ngIf="!getServer()" (click)="reload()" class="somethingwrong-btn">
+        Reload
+    </button>
+  </div>
+</div>

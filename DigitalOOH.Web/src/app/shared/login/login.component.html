@@ -1,0 +1,59 @@
+<div class="meta-login-container">
+  <div class="meta-login-card">
+
+    <!-- Branding -->
+    <div class="meta-brand">
+      <img src="/assets/images/logo.png" alt="logo" />
+      <h2>DigitalOOH</h2>
+      <p>Manage your ads easily.</p>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="formGroup" class="meta-form">
+
+      <mat-form-field appearance="outline" class="meta-input">
+        <input
+          matInput
+          type="email"
+          placeholder="Email address"
+          formControlName="email"
+        />
+        @if (formGroup.get('email')?.hasError('email')) {
+          <mat-error>Please enter a valid email address</mat-error>
+        }
+        @if (formGroup.get('email')?.hasError('required')) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="meta-input">
+        <input
+          matInput
+          [type]="hidePassword ? 'password': 'text'"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword = !hidePassword"
+          aria-label="Toggle password visibility"
+        >
+          <mat-icon>
+            {{ hidePassword ? 'visibility' : 'visibility_off' }}
+          </mat-icon>
+        </button>
+
+        @if (formGroup.get('password')?.hasError('required')) {
+          <mat-error>Password is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+
+      <button mat-flat-button class="meta-login-btn" (click)="login()">
+        Log In
+      </button>
+
+    </form>
+  </div>
+</div>

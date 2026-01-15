@@ -74,11 +74,7 @@ export class AuthService {
 
     isAuthenticated(): boolean {
         let token = (this.getLocalStorage('token') ?? '') as string;
-        if(token) {
-            return this.jwtHelper.isTokenExpired(token);
-        } else {
-            return false;
-        }
+        return token ? !this.jwtHelper.isTokenExpired(token) : false;
     }
 
     clearAuth() {
