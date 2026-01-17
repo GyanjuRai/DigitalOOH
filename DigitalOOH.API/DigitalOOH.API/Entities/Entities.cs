@@ -10,7 +10,7 @@ namespace DigitalOOH.API.Entities
     public class Screen : BaseEntity
     {
         public required string Name { get; set; }
-        public string? Location { get; set; } = null;
+        public required string Location { get; set; }
         public required string Resolution { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

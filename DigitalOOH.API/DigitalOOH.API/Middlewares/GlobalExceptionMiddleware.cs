@@ -49,13 +49,13 @@ namespace DigitalOOH.API.Middlewares
                 // DB constraint violation
                 case DbUpdateException: 
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    response.Message = e.Message;
+                    response.Message = "Invalid data or database constraint violation";
                     break;
 
                 // Authentication problem
                 case UnauthorizedAccessException:
                     context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    response.Message = e.Message;
+                    response.Message = "Unauthorized either token expired or no token";
                     break;
 
                 default:

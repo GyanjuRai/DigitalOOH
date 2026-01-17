@@ -43,7 +43,8 @@ namespace DigitalOOH.API.DataAccess.DBContext
                 .IsRequired();
 
             builder.Property(x => x.Location)
-                .HasColumnType("nvarchar(200)");
+                .HasColumnType("nvarchar(200)")
+                .IsRequired();
 
             builder.Property(x => x.IsActive)
                 .HasColumnType("bit")

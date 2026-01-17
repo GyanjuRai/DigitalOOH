@@ -33,7 +33,7 @@ namespace DigitalOOH.API.Controllers.Shared.Account
 
             if (!MailAddress.TryCreate(param.Email, out _))
             {
-                return BadRequest(new ResponseModel<object>
+                return Ok(new ResponseModel<object>
                 {
                     Type = ResponseEnum.InvalidCredential.ToString(),
                     Message = "Invalid email address",
@@ -45,7 +45,7 @@ namespace DigitalOOH.API.Controllers.Shared.Account
 
             if (response.Email == null)
             {
-                return NotFound(new ResponseModel<object> 
+                return Ok(new ResponseModel<object> 
                 {
                     Type = ResponseEnum.NoRecordFound.ToString(),
                     Message = "No user found", 

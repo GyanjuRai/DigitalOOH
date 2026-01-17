@@ -26,9 +26,8 @@
 
   <ItemGroup>
     <Folder Include="DataAccess\Migrations\" />
-    <Folder Include="Interfaces\Application\" />
-    <Folder Include="Models\Application\" />
-    <Folder Include="Services\Application\" />
+    <Folder Include="wwwroot\media\images\" />
+    <Folder Include="wwwroot\media\videos\" />
   </ItemGroup>
 
 </Project>

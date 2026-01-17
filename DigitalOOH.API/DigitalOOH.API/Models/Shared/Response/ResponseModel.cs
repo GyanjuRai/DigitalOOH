@@ -8,4 +8,10 @@ namespace DigitalOOH.API.Models.Shared.Response
         public required string Type { get; set; }
         public T? Data { get; set; }
     }
+
+    public record GridResponse<T>
+    {
+        public List<T>? Data { get; set; }
+        public int TotalRows { get; set; }
+    }
 }
