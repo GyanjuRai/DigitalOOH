@@ -1,0 +1,38 @@
+<mat-sidenav-container class="meta-layout">
+
+  <!-- SIDE NAV -->
+  <mat-sidenav
+    mode="side"
+    opened
+    class="meta-sidenav"
+  >
+
+    <!-- LOGO -->
+    <div class="meta-sidenav-header">
+      <img src="assets/images/logo.png" alt="logo" />
+      <span class="app-name">DigitalOOH</span>
+    </div>
+
+    <!-- MENU -->
+    <mat-nav-list class="meta-menu">
+      <a mat-list-item routerLink="/screens" routerLinkActive="active">
+        Screens
+      </a>
+
+      <a mat-list-item routerLink="/ads" routerLinkActive="active">
+        Ads
+      </a>
+
+      <a mat-list-item routerLink="/campaigns" routerLinkActive="active">
+        Campaigns
+      </a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <!-- MAIN CONTENT -->
+  <mat-sidenav-content class="meta-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

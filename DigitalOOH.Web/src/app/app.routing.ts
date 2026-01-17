@@ -3,10 +3,12 @@ import { AuthGuardService } from "./core/guards/auth-guard.service";
 import { inject } from "@angular/core";
 import { LoginComponent } from "./shared/login/login.component";
 import { NonFoundComponent } from "./errors/non-found/non-found.component";
+import { MainLayoutComponent } from "./shared/layouts/main-layout.component";
 
 export const appRoutes: Routes = [
     {
         path: '',
+        component: MainLayoutComponent,
         canActivate: [
             (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuardService).canActivate(route, state)
         ],
