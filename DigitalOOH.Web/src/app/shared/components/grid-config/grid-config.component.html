@@ -1,0 +1,27 @@
+<div class="table-wrapper">
+  <table class="data-table">
+    <thead>
+      <tr class="table-header-row">
+        <th *ngFor="let col of displayedColumns" class="table-header-cell">
+          {{ getColumnDisplay(col) }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr 
+        *ngFor="let row of config.dataSource.data" 
+        class="table-row"
+        (click)="selectRow(row)"
+        [class.selected]="row === selectedRow">
+        <td *ngFor="let col of displayedColumns" class="table-cell">
+          {{ row[col] }}
+        </td>
+      </tr>
+      <tr *ngIf="config.dataSource.data.length === 0" class="empty-row">
+        <td [attr.colspan]="displayedColumns.length" class="empty-cell">
+          No data available
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
