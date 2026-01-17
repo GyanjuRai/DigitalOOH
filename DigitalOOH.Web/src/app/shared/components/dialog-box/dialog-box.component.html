@@ -1,0 +1,38 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2 class="dialog-title">{{ title }}</h2>
+    <button class="close-button" (click)="onCancel()" matTooltip="Close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <form [formGroup]="form" class="dialog-form">
+      <mat-form-field *ngFor="let field of fields" appearance="outline">
+        <mat-label>{{ field.label }}</mat-label>
+        <input 
+          matInput 
+          [type]="field.type || 'text'"
+          [formControlName]="field.name"
+          [placeholder]="field.placeholder || ''"
+          >
+        <mat-error *ngIf="getFieldControl(field.name)?.hasError('required')">
+          {{ field.label }} is required
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div class="dialog-actions">
+    <button class="cancel-btn" mat-button (click)="onCancel()">
+      {{ cancelLabel }}
+    </button>
+    <button 
+      class="submit-btn" 
+      mat-button 
+      (click)="onSubmit()"
+      [disabled]="!form.valid">
+      {{ submitLabel }}
+    </button>
+  </div>
+</div>
