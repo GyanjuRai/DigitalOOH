@@ -1,0 +1,9 @@
+<div class="snackbar-container" [class]="'snackbar-' + type">
+  <div class="snackbar-content">
+    <mat-icon class="snackbar-icon">{{ getIcon() }}</mat-icon>
+    <span class="snackbar-message">{{ message }}</span>
+  </div>
+  <button class="snackbar-close" (click)="onClose()" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
