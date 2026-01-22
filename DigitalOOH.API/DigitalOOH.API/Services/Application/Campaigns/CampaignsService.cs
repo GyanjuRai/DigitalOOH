@@ -82,8 +82,8 @@ namespace DigitalOOH.API.Services.Application.Campaigns
                 Name = campaigns.Name,
                 StartTime = campaigns.StartTime,
                 EndTime = campaigns.EndTime,
-                Screens = string.Join(", ", campaigns.CampaignScreens.Select(cs => cs.ScreenId)),
-                Ads = string.Join(", ", campaigns.CampaignAds.Select(ca => ca.AdId)),
+                Screens = string.Join(", ", campaigns.CampaignScreens.Select(c => c.Screen.Name)),
+                Ads = string.Join(", ", campaigns.CampaignAds.Select(a => a.Ad.Title)),
                 CreatedAt = campaigns.CreatedAt
             };
         }
