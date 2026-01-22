@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataAccess\Migrations\" />
     <Folder Include="wwwroot\media\images\" />
     <Folder Include="wwwroot\media\videos\" />
   </ItemGroup>

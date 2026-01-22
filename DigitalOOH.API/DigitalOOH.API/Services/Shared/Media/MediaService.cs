@@ -23,7 +23,7 @@ namespace DigitalOOH.API.Services.Shared.Media
 
             var folder = param.MediaType == MediaType.Image
                 ? "media/images"
-                : "meida/videos";
+                : "media/videos";
 
             var fileName = $"{Guid.NewGuid()}{extension}";
             var savePath = Path.Combine(_env.WebRootPath, folder, fileName);
@@ -50,27 +50,27 @@ namespace DigitalOOH.API.Services.Shared.Media
 
             if (type == MediaType.Image && !imageExt.Contains(extension))
             {
-                throw new InvalidOperationException("Invalid image type");
+                throw new NotSupportedException($"Image type {extension} not supported");
             }
 
             if(type == MediaType.Video && !videoExt.Contains(extension))
             {
-                throw new InvalidOperationException("Invalid video type");
+                throw new NotSupportedException($"Video type {extension} not supported");
             }
 
             if(size > 10_000_000)
             {
-                throw new InvalidOperationException("File too large");
+                throw new NotSupportedException($"File is too large");
             }
         }
 
         public void DeleteMediaFile(string mediaUrl)
         {
             var filePath = Path.Combine(
-                Directory.GetCurrentDirectory(),
-                "wwwroot",
-                mediaUrl.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString())
-                );
+                                Directory.GetCurrentDirectory(),
+                                "wwwroot",
+                                mediaUrl.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString())
+                                );
 
             if(File.Exists(filePath))
             {

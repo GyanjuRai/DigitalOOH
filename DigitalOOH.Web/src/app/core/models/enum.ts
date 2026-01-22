@@ -3,7 +3,8 @@ export enum responseEnum {
     unauthorized = 'Unauthorized',
     unexpectedError = 'UnexpectedError',
     noRecordFound = 'NoRecordFound',
-    invalidCredential = 'InvalidCredential'
+    invalidCredential = 'InvalidCredential',
+    failed = 'Failed'
 }
 
 export enum mediaTypeEnum {
