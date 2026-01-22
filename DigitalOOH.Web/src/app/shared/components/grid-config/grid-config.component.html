@@ -14,7 +14,57 @@
         (click)="selectRow(row)"
         [class.selected]="row === selectedRow">
         <td *ngFor="let col of displayedColumns" class="table-cell">
-          {{ row[col] }}
+          
+          <!-- Text -->
+          <ng-container *ngIf="getColumnType(col) === 'text'">
+            {{ row[col] }}
+          </ng-container>
+
+          <!-- number -->
+           <ng-container *ngIf="getColumnType(col) === 'number'">
+            {{ row[col] }}
+           </ng-container>
+
+          <!-- Boolena type -->
+          <ng-container *ngIf="getColumnType(col) === 'boolean'">
+            <span
+              class="status-badge"
+              [class.active]="row[col]"
+              [class.inactive]="!row[col]"
+            >
+              {{ row[col] ? 'Active' : 'InActive'}}
+            </span>
+          </ng-container>
+
+          <!-- Media type -->
+           <ng-container *ngIf="getColumnType(col) === 'media-type'">
+              <ng-container [ngSwitch]="row[col]">
+                  <span *ngSwitchCase="mediaType.image">Image</span>
+                  <span *ngSwitchCase="mediaType.video">Video</span>
+                  <span *ngSwitchDefault>Unknown</span>
+                </ng-container>
+           </ng-container>
+
+          <!-- Image or video -->
+          <ng-container *ngIf="getColumnType(col) === 'media' && row[col]">
+
+            <img
+              *ngIf="row.mediaType === mediaType.image"
+              [src]="getMediaUrl(row[col])"
+              class="media-thumb"
+              alt="image"
+            >
+
+            <video
+              *ngIf="row.mediaType === mediaType.video"
+              [src]="getMediaUrl(row[col])"
+              class="media-thumb"
+              autoplay
+              loop
+              muted
+            ></video>
+
+          </ng-container>
         </td>
       </tr>
       <tr *ngIf="config.dataSource.data.length === 0" class="empty-row">

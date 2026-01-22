@@ -10,6 +10,6 @@ export interface gridConfig {
 export interface gridColumn {
     name: string; // column name
     display?: string // column display name
-    type: string, 
+    type: 'text' | 'boolean' | 'media' | 'media-type' | 'number', 
     width?: number // column width
 }

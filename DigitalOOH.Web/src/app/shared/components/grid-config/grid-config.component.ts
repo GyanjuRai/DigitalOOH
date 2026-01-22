@@ -8,6 +8,8 @@ import {
 } from "@angular/core";
 
 import { gridConfig } from "./grid.model";
+import { mediaTypeEnum } from "../../../core/models/enum";
+import { AppConst } from "../../../app.const";
 
 @Component({
     selector: 'grid-config',
@@ -22,6 +24,8 @@ export class GridComponent implements OnChanges {
 
     displayedColumns: string[] = [];
     selectedRow: any;
+    mediaType = mediaTypeEnum;
+    apiUrl: string = AppConst.data.apiBaseUrl ?? '';
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['config']) {
@@ -29,9 +33,17 @@ export class GridComponent implements OnChanges {
         }
     }
 
+    getColumnType(columnName: string): string {
+        return this.config.columns?.find(c => c.name === columnName)?.type ?? 'text';
+    }
+
     getColumnDisplay(columnName: string): string {
         const column = this.config.columns?.find(c => c.name === columnName);
         return column?.display || columnName;
+    }
+    
+    getMediaUrl(path: string): string {
+        return `${this.apiUrl}${path}`
     }
 
     selectRow(row: any): void {
