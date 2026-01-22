@@ -98,6 +98,9 @@ namespace DigitalOOH.API.DataAccess.Migrations
                     b.Property<Guid>("AdId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("PlayOrder")
+                        .HasColumnType("int");
+
                     b.HasKey("CampaignId", "AdId");
 
                     b.HasIndex("AdId");
@@ -173,6 +176,7 @@ namespace DigitalOOH.API.DataAccess.Migrations
                         .HasDefaultValue(true);
 
                     b.Property<string>("Location")
+                        .IsRequired()
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")

@@ -2,13 +2,19 @@
 
 namespace DigitalOOH.API.Interfaces.Shared.Account
 {
+    /// <summary>
+    /// Service contract for account authentication operations.
+    /// </summary>
+    /// <remarks>
+    /// Handles user credential validation, JWT token generation, and authentication workflows.
+    /// </remarks>
     public interface IAccountService
     {
         /// <summary>
-        /// Login user with email and password
+        /// Authenticates a user by email and password credentials.
         /// </summary>
-        /// <param name="param">Record with Email and Password</param>
-        /// <returns>UserInfoResponse</returns>
+        /// <param name="param">The <see cref="UserLoginParam"/> containing email and password.</param>
+        /// <returns>A <see cref="Task{UserInfoResponse}"/> containing user info and JWT token on success, or empty values on failure.</returns>
         public Task<UserInfoResponse> Login(UserLoginParam param);
     }
 }

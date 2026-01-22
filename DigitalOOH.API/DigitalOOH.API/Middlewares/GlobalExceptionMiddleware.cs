@@ -29,57 +29,80 @@ namespace DigitalOOH.API.Middlewares
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "==================================> : Unhandle Exception");
-
+                _logger.LogError(ex, $"==================================> Unhandle Exception: {ex.Message}");
                 await HandleExceptionAsync(context, ex);
             }
         }
 
-        public async Task HandleExceptionAsync(HttpContext context, Exception e)
+        public async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             context.Response.ContentType = "application/json";
 
-            var response = new ErrorResponse
-            {
-                TraceId = context.TraceIdentifier
-            };
+            var response = new ErrorResponse();
 
-            switch (e)
+            switch (ex)
             {
-                // DB constraint violation
-                case DbUpdateException: 
-                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    response.Message = "Invalid data or database constraint violation";
+                case ValidationException:
+                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    response.Type = "ValidationError";
+                    response.Message = ex.Message;
                     break;
 
-                // Authentication problem
                 case UnauthorizedAccessException:
-                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    response.Message = "Unauthorized either token expired or no token";
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    response.Type = "UnauthorizedError";
+                    response.Message = ex.Message;
+                    break;
+
+                case InvalidOperationException:
+                    context.Response.StatusCode = StatusCodes.Status409Conflict;
+                    response.Type = "ConflictError";
+                    response.Message = ex.Message;
+                    break;
+
+                case NotSupportedException:
+                    context.Response.StatusCode = StatusCodes.Status415UnsupportedMediaType;
+                    response.Type = "UnsupportedMediaTypeError";
+                    response.Message = ex.Message;
+                    break;
+
+                case KeyNotFoundException:
+                    context.Response.StatusCode = StatusCodes.Status404NotFound;
+                    response.Type = "NotFoundError";
+                    response.Message = ex.Message;
                     break;
 
                 default:
-                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    response.Message = "An unexpected error occured";
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    response.Type = "ServerError";
+                    response.Message = "Something went wrong";
                     break;
             }
 
             if(_env.IsDevelopment())
             {
-                response.Details = e.ToString();
+                response.Details = ex.ToString();
             }
 
-            var json = JsonSerializer.Serialize(response,
-                new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            var json = JsonSerializer.Serialize(response, new JsonSerializerOptions 
+                                                            { 
+                                                                PropertyNamingPolicy = JsonNamingPolicy.CamelCase 
+                                                            }
+            );
 
             await context.Response.WriteAsync(json);
         }
 
         public class ErrorResponse
         {
+            public string Type { get; set; } = null!;
             public string Message { get; set; } = null!;
             public string? Details { get; set; }
-            public string TraceId { get; set; } = null!;
+        }
+
+        public class ValidationException : Exception
+        {
+            public ValidationException(string message) : base(message) { }
         }
     }
 }
