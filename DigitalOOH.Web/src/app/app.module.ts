@@ -14,6 +14,15 @@ import { GlobalErrorHandler } from './core/error-handler/global-errorhandler';
 import { SomethingWrongComponent } from './errors/something-wrong/something-wrong.component';
 import { NonFoundComponent } from './errors/non-found/non-found.component';
 import { LoginModule } from './shared/login/login.module';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackbarModule } from './shared/components/snackbar/snackbar.module';
+import { MainLayoutComponent } from './shared/layouts/main-layout.component';
+import { FeatureModule } from './features/features.module';
+import { GridModule } from './shared/components/grid-config/grid-config.module';
+import { CommonModule } from '@angular/common';
 import { RequestInterceptor } from './core/interceptor/request-interceptor';
 
 
@@ -22,12 +31,19 @@ import { RequestInterceptor } from './core/interceptor/request-interceptor';
     AppComponent,
     SomethingWrongComponent,
     NonFoundComponent,
+    MainLayoutComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     HttpClientModule,
+    MatSidenavModule,
+    MatListModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    SnackbarModule,
     LoginModule,
   ],
   providers: [

@@ -43,7 +43,8 @@ namespace DigitalOOH.API.DataAccess.DBContext
                 .IsRequired();
 
             builder.Property(x => x.Location)
-                .HasColumnType("nvarchar(200)");
+                .HasColumnType("nvarchar(200)")
+                .IsRequired();
 
             builder.Property(x => x.IsActive)
                 .HasColumnType("bit")
@@ -170,6 +171,10 @@ namespace DigitalOOH.API.DataAccess.DBContext
             builder.ToTable("campaign_ads");
 
             builder.HasKey(x => new { x.CampaignId, x.AdId });
+
+            builder.Property(x => x.PlayOrder)
+                .HasColumnType("int")
+                .IsRequired();
             
             builder.HasOne(x => x.Campaign)
                 .WithMany(x => x.CampaignAds)

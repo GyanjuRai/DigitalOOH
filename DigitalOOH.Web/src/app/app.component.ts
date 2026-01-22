@@ -10,6 +10,4 @@ export class AppComponent {
   title = 'DigitalOOH.Web';
 
   constructor(public errorState: ErrorStateHandlerService) {}
-
-  
 }

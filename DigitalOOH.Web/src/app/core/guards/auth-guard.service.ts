@@ -11,16 +11,15 @@ export class AuthGuardService {
         private router: Router
     ) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        const url: string = state.url;
-        return this.checkLogin(url);
+    canActivate(): boolean {
+        return this.canAccess();
     }
 
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        return this.canActivate(route, state);
+    canActivateChild(): boolean {
+        return this.canActivate();
     }
 
-    checkLogin(url: string): boolean {
+    private canAccess(): boolean {
         if(!this.auth.isAuthenticated()){
             this.router.navigate(['/login']);
             // TODO: Snackbar implementation

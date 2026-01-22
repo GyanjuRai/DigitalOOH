@@ -1,1 +1,24 @@
-<p>campaign working</p>
+<div class="container">
+  <div class="page-header">
+    <h2 class="page-title">Campaigns</h2>
+    <div class="action-buttons">
+      <button class="action-btn add-btn" (click)="onAdd()" matTooltip="Create Campaign">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button
+        class="action-btn refresh-btn"
+        (click)="refresh()"
+        matTooltip="refresh data"
+      >
+        <mat-icon>autorenew</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <grid-config
+      [config]="gridConfig"
+      (rowSelect)="onRowSelect($event)">
+    </grid-config>
+  </div>
+</div>

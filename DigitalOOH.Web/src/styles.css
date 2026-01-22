@@ -1,6 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+
 :root {
-  /* ===== Primary Brand Colors ===== */
+    /* ===== Primary Brand Colors ===== */
   --meta-primary: #1877F2;      /* Meta Blue (buttons, links, highlights) */
   --meta-primary-dark: #145DBF; /* Hover / active state */
   --meta-primary-light: #E7F0FF;/* Light background accents */
@@ -33,7 +33,7 @@ body {
 }
 
 /* =========================================
-   GLOBAL META STYLE – MAT FORM FIELD
+   MAT FORM FIELD
    ========================================= */
 
 .mat-mdc-form-field {
@@ -127,3 +127,161 @@ body {
 .mat-mdc-form-field .mdc-line-ripple {
   display: none;
 }
+
+/* ===============================
+   SIDENAV
+   =============================== */
+
+.mat-sidenav-container {
+  background-color: var(--meta-bg-main) !important;
+  color: var(--meta-text-primary) !important;
+}
+
+.mat-sidenav {
+  width: 260px !important;
+  background-color: var(--meta-bg-card) !important;
+  border-right: 1px solid var(--meta-border) !important;
+}
+
+/* ===============================
+   NAV LIST
+   =============================== */
+
+.mat-mdc-nav-list {
+  padding-top: 8px !important;
+}
+
+/* Menu item container */
+.mat-mdc-nav-list .mat-mdc-list-item {
+  height: 44px !important;
+  margin: 4px 8px !important;
+  border-radius: 6px !important;
+}
+
+.mat-mdc-nav-list .mat-mdc-list-item
+.mdc-list-item__primary-text {
+  color: var(--meta-text-primary) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+/* Hover */
+.mat-mdc-nav-list .mat-mdc-list-item:hover {
+  background-color: var(--meta-bg-hover) !important;
+}
+
+/* Hover text */
+.mat-mdc-nav-list .mat-mdc-list-item:hover
+.mdc-list-item__primary-text {
+  color: var(--meta-text-primary) !important;
+}
+
+/* ===============================
+   ACTIVE ROUTE
+   =============================== */
+
+.mat-mdc-nav-list .mat-mdc-list-item.active {
+  background-color: var(--meta-primary-light) !important;
+}
+
+.mat-mdc-nav-list .mat-mdc-list-item.active
+.mdc-list-item__primary-text {
+  color: var(--meta-primary) !important;
+  font-weight: 600 !important;
+}
+
+.mat-mdc-nav-list .mat-mdc-list-item mat-icon {
+  color: var(--meta-text-secondary) !important;
+}
+
+.mat-mdc-nav-list .mat-mdc-list-item.active mat-icon {
+  color: var(--meta-primary) !important;
+}
+
+.mat-mdc-nav-list .mdc-list-item__ripple {
+  display: none !important;
+}
+
+/* Logout button alignment */
+.mat-sidenav button.mat-mdc-button {
+  text-align: left !important;
+}
+
+/* Root container */
+.mat-sidenav-container {
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+/* Sidenav itself */
+.mat-sidenav {
+  overflow: hidden !important;
+}
+
+.mat-drawer-inner-container {
+  overflow: hidden !important;
+}
+
+/* Nav list safety */
+.mat-mdc-nav-list {
+  overflow: hidden !important;
+}
+
+/* Prevent margin-caused overflow */
+.mat-mdc-list-item {
+  box-sizing: border-box !important;
+}
+
+/* ===============================
+   MATERIAL TABLE
+   =============================== */
+
+.mat-mdc-table {
+  background-color: var(--meta-bg-card);
+}
+
+.mat-mdc-header-row {
+  height: 44px;
+}
+
+.mat-mdc-row {
+  height: 44px;
+}
+
+.mat-mdc-paginator {
+  border-top: 1px solid var(--meta-border);
+}
+
+.mat-mdc-paginator-page-size,
+.mat-mdc-paginator-range-label {
+  font-size: 13px;
+  color: var(--meta-text-secondary);
+}
+
+/* Remove ripple */
+.mat-mdc-row .mdc-list-item__ripple {
+  display: none;
+}
+
+/* ===============================
+   MATERIAL SNACKBAR
+   =============================== */
+
+.mat-mdc-snack-bar-container {
+  padding: 0 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background-color: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  min-width: 0 !important;
+}
+
+/* Remove default snackbar styles that interfere */
+.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  padding: 0 !important;
+}
+

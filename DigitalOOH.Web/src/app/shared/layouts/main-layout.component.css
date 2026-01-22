@@ -1,0 +1,40 @@
+/* ===============================
+   APP LAYOUT
+   =============================== */
+
+.meta-layout {
+  height: 100vh;
+  background-color: #F0F2F5;
+}
+
+/* ===============================
+   SIDENAV CONTENT
+   =============================== */
+
+.meta-sidenav-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  border-bottom: 1px solid #DADDE1;
+}
+
+.meta-sidenav-header img {
+  width: 32px;
+}
+
+.meta-sidenav-header .app-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #050505;
+}
+
+/* ===============================
+   MAIN CONTENT
+   =============================== */
+
+.meta-content {
+  padding: 24px;
+  background-color: #F0F2F5;
+  min-height: 100vh;
+}

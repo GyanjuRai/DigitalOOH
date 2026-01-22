@@ -15,22 +15,33 @@ export class WebApiService {
         this.apiUrl = `${AppConst?.data?.apiBaseUrl}${AppConst?.data?.apiSegment}`;
     }
 
-    get(url: string, param?: object): Observable<any> {
+    get<T>(url: string, param?: object): Observable<T> {
 
         let params = {};
         params = param as HttpParams;
 
-        return this.htpp.get(`${this.apiUrl}${url}`, { params: params, withCredentials: true}).pipe(
-            delay(100),
+        return this.htpp.get<T>(`${this.apiUrl}${url}`, { params: params, withCredentials: true}).pipe(
             retry(0)
-        )
+        );
     }
 
-    post(url: string, param?: object): Observable<any>{
+    post<T>(url: string, param?: object): Observable<T> {
 
-        return this.htpp.post(`${this.apiUrl}${url}`, param as HttpParams).pipe(
-            delay(100),
+        return this.htpp.post<T>(`${this.apiUrl}${url}`, param, { withCredentials: true } ).pipe(
             retry(0)
-        )
+        );
+    }
+
+    put<T>(url: string, param?: object): Observable<T> {
+        return this.htpp.put<T>(`${this.apiUrl}${url}`, param, { withCredentials: true }).pipe(
+            retry(0)
+        );
+    }
+
+    delete<T>(url: string, params?: object): Observable<T> {
+        
+        return this.htpp.delete<T>(`${this.apiUrl}${url}/${params}`, { withCredentials: true }).pipe(
+            retry(0)
+        );
     }
 }

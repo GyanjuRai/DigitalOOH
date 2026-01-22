@@ -38,18 +38,17 @@ export class RequestInterceptor implements HttpInterceptor {
             }
         }
 
-        let origin = AppConst.data.webUrl ?? '*';
-        headers = headers.set('Access-Control-Allow-Origin', origin);
-        headers = headers.set('Access-Control-Allow-Headers', 'Origin, Authorization, Content-Type');
-        headers = headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        headers = headers.set('Accept', 'application/json');
-        const contentType = 'application/json; charset=utf-8;';
-        headers = headers.set('Content-Type', contentType);
-
-        if (headers.get('Content-Type' ) == 'angular/auto') {
-            headers = headers.delete('Content-Type');
+        if(!(req.body instanceof FormData)) {
+            headers = headers.set('Accept', 'application/json');
+            const contentType = 'application/json; charset=utf-8;';
             headers = headers.set('Content-Type', contentType);
+
+            if (headers.get('Content-Type' ) == 'angular/auto') {
+                headers = headers.delete('Content-Type');
+                headers = headers.set('Content-Type', contentType);
+            }
         }
+        
         return req.clone( { headers });
     }
 }

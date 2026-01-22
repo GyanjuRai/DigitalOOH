@@ -3,3 +3,8 @@ export interface responseModel<T> {
     type: string;
     data: T;
 }
+
+export interface gridResponse<T> {
+    data: T[];
+    totalRows: number;
+}

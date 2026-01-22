@@ -13,6 +13,8 @@ namespace DigitalOOH.API.Models.Shared.Enum
         [Description("No record found!")]
         NoRecordFound,
         [Description("Invalid Credentials!")]
-        InvalidCredential
+        InvalidCredential,
+        [Description("Failed")]
+        Failed,
     }
 }

@@ -4,13 +4,13 @@ namespace DigitalOOH.API.Entities
 {
     public class BaseEntity
     {
-        public Guid Id { get; set; } = new Guid();
+        public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
     public class Screen : BaseEntity
     {
         public required string Name { get; set; }
-        public string? Location { get; set; } = null;
+        public required string Location { get; set; }
         public required string Resolution { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
@@ -52,6 +52,8 @@ namespace DigitalOOH.API.Entities
 
         public Guid AdId { get; set; }
         public Ad Ad { get; set; } = null!;
+
+        public int PlayOrder { get; set; }
     }
     public class ProofOfPlay : BaseEntity
     {

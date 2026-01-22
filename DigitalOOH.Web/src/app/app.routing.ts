@@ -3,15 +3,17 @@ import { AuthGuardService } from "./core/guards/auth-guard.service";
 import { inject } from "@angular/core";
 import { LoginComponent } from "./shared/login/login.component";
 import { NonFoundComponent } from "./errors/non-found/non-found.component";
+import { MainLayoutComponent } from "./shared/layouts/main-layout.component";
 
 export const appRoutes: Routes = [
     {
         path: '',
+        component: MainLayoutComponent,
         canActivate: [
-            (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuardService).canActivate(route, state)
+            () => inject(AuthGuardService).canActivate()
         ],
         canActivateChild: [
-            (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuardService).canActivateChild(route, state)
+            () => inject(AuthGuardService).canActivateChild()
         ],
         loadChildren: () => import('./features/features.module').then(m => m.FeatureModule)
     },

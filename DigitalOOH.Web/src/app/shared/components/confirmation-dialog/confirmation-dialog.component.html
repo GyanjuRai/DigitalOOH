@@ -1,0 +1,25 @@
+<div class="confirmation-container">
+  <div class="confirmation-header">
+    <h2 class="confirmation-title">{{ title }}</h2>
+    <button class="close-button" (click)="onCancel()" matTooltip="Close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="confirmation-content">
+    <p class="confirmation-message">{{ message }}</p>
+  </div>
+
+  <div class="confirmation-actions">
+    <button class="cancel-btn" mat-button (click)="onCancel()">
+      {{ cancelLabel }}
+    </button>
+    <button 
+      class="confirm-btn" 
+      [class.danger]="confirmColor === 'danger'"
+      mat-button 
+      (click)="onConfirm()">
+      {{ confirmLabel }}
+    </button>
+  </div>
+</div>
