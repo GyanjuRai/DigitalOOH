@@ -23,6 +23,7 @@ import { MainLayoutComponent } from './shared/layouts/main-layout.component';
 import { FeatureModule } from './features/features.module';
 import { GridModule } from './shared/components/grid-config/grid-config.module';
 import { CommonModule } from '@angular/common';
+import { RequestInterceptor } from './core/interceptor/request-interceptor';
 
 
 @NgModule({
@@ -58,11 +59,11 @@ import { CommonModule } from '@angular/common';
       multi: true
     },
     provideHttpClient(),
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: RequestInterceptor,
-    //   multi: true
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,

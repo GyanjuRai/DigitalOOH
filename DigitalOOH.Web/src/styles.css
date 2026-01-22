@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+
 :root {
     /* ===== Primary Brand Colors ===== */
   --meta-primary: #1877F2;      /* Meta Blue (buttons, links, highlights) */
@@ -33,7 +33,7 @@ body {
 }
 
 /* =========================================
-   GLOBAL META STYLE – MAT FORM FIELD
+   MAT FORM FIELD
    ========================================= */
 
 .mat-mdc-form-field {
@@ -129,7 +129,7 @@ body {
 }
 
 /* ===============================
-   MATERIAL SIDENAV – META STYLE
+   SIDENAV
    =============================== */
 
 .mat-sidenav-container {
@@ -190,10 +190,6 @@ body {
   font-weight: 600 !important;
 }
 
-/* ===============================
-   ICON COLOR (IF USED)
-   =============================== */
-
 .mat-mdc-nav-list .mat-mdc-list-item mat-icon {
   color: var(--meta-text-secondary) !important;
 }
@@ -201,10 +197,6 @@ body {
 .mat-mdc-nav-list .mat-mdc-list-item.active mat-icon {
   color: var(--meta-primary) !important;
 }
-
-/* ===============================
-   REMOVE RIPPLE
-   =============================== */
 
 .mat-mdc-nav-list .mdc-list-item__ripple {
   display: none !important;
@@ -214,10 +206,6 @@ body {
 .mat-sidenav button.mat-mdc-button {
   text-align: left !important;
 }
-
-/* =====================================
-   FIX MAT SIDENAV BOTTOM SCROLLBAR (MDC)
-   ===================================== */
 
 /* Root container */
 .mat-sidenav-container {
@@ -230,7 +218,6 @@ body {
   overflow: hidden !important;
 }
 
-/* THIS is the real culprit */
 .mat-drawer-inner-container {
   overflow: hidden !important;
 }
@@ -246,7 +233,7 @@ body {
 }
 
 /* ===============================
-   MATERIAL TABLE – META STYLE
+   MATERIAL TABLE
    =============================== */
 
 .mat-mdc-table {
@@ -277,7 +264,7 @@ body {
 }
 
 /* ===============================
-   MATERIAL SNACKBAR – META STYLE
+   MATERIAL SNACKBAR
    =============================== */
 
 .mat-mdc-snack-bar-container {
@@ -298,4 +285,3 @@ body {
   padding: 0 !important;
 }
 
-/* Custom snackbar component styling is in snackbar.component.css */

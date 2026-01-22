@@ -7,6 +7,7 @@ import { loginResponse, userLoginParam } from "../../core/models/account.model";
 import { responseModel } from "../../core/models/base.model";
 import { responseEnum } from "../../core/models/enum";
 import { Router } from "@angular/router";
+import { SnackbarService } from "../../core/services/snackbar.service";
 
 @Component({
     selector: 'login',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         private auth: AuthService,
         private acc: AccountService,
         private router: Router,
+        private snackbar: SnackbarService
 
     ) 
     {
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.auth.setSession(response.data);
               this.router.navigate(['/screens']);
             } else {
-              // TODO: Add snackbar
+              this.snackbar.warning(response.message);
             }
         })
       }
