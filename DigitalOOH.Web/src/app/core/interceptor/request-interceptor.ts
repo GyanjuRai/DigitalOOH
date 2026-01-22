@@ -46,7 +46,7 @@ export class RequestInterceptor implements HttpInterceptor {
             if (headers.get('Content-Type' ) == 'angular/auto') {
                 headers = headers.delete('Content-Type');
                 headers = headers.set('Content-Type', contentType);
-        }
+            }
         }
         
         return req.clone( { headers });

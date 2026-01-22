@@ -42,9 +42,9 @@ namespace DigitalOOH.API.Middlewares
 
             switch (ex)
             {
-                case ValidationException:
+                case BusinessException:
                     context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    response.Type = "ValidationError";
+                    response.Type = "BusinessException";
                     response.Message = ex.Message;
                     break;
 
@@ -100,9 +100,9 @@ namespace DigitalOOH.API.Middlewares
             public string? Details { get; set; }
         }
 
-        public class ValidationException : Exception
+        public class BusinessException : Exception
         {
-            public ValidationException(string message) : base(message) { }
+            public BusinessException(string message) : base(message) { }
         }
     }
 }

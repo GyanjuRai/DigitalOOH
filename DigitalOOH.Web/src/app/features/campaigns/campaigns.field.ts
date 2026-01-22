@@ -11,21 +11,25 @@ export const campaignFeild: DialogField[] = [
     {
         name: 'startTime',
         label: 'Start time',
-        type: 'datetime'
+        type: 'datetime',
+        required: true
     },
     {
         name: 'endTime',
         label: 'End time',
-        type: 'datetime'
+        type: 'datetime',
+        required: true
     },
     {
         name: 'screens',
         label: 'Screens',
-        type: 'mutiselect'
+        type: 'mutiselect',
+        required: true
     },
     {
         name: 'ads',
         label: 'Ads',
-        type: 'adsselector'
+        type: 'adsselector',
+        required: true
     }
 ]

@@ -46,7 +46,7 @@ The system consist of:
 Create `appsettings.Development.json` (not tracked in source code):
 
 ```json
-    {
+{
     "ConnectionStrings": {
         "DefaultConnection": "Server=.;Database=DigitalOOH;Trusted_Connection=True;TrustServerCertificate=True;"
     },
@@ -77,7 +77,7 @@ The API will be available at:
 ```
 
 ### Backend Configuration Notes
-The backend uses a central configuration file located at `API/Const/AppData.cs` to define API metadata such as the API title, version, description, and Swagger-related settings
+The backend uses a central configuration file located at `API/Const/AppData.cs` to define API metadata such as the API title, version, description, Swagger-related settings, and policy name.
 
 3. **Swagger UI**
 ```bash
@@ -135,12 +135,18 @@ Swagger/OpenAPI documentation is available at:
 - `POST /api/AdsMng/AdAdd`
 - `DELETE /api/AdsMng/AdRemove/{id}`
 
-**Campaigns**
+**Screens**
 
 - `GET /api/Screens/GetScreens`
 - `GET /api/Screens/GetScreenForDropdown`
-- `POST /api/Screens/ScreenEdit`
+- `POST /api/Screens/ScreenAdd`
+- `PUT /api/Screens/ScreenEdit`
 - `GET /api/Screens/GetPlaylist/{ScreenId}/playlist`
+
+**Campaigns**
+
+- `GET /api/Campaigns/GetCampaigns`
+- `POST /api/Campaigns/AddCampaign`
 
 **Account**
 
@@ -211,11 +217,15 @@ It also log proof-of-play data for analytics and to know what actually played.
 <hr>
 
 ## Key Assumptions
-- Screens are always online when requesting playlists
+
 - Campaign activation depends on current server time
 - One playlist request represents a proof-of-play event
 - Token refresh and long-lived sessions are out of scope
 - Media files (images and video) are stored under `wwwroot/media/images` and `wwwroot/media/videos`. These directories are automatically created at runtime by the media upload service if they do not exist.
+- Campaigns are immutable scheduling entities `once created`, they cannot be edited or deleted
+- Only active screens can be assigned to campaigns. Inactive screens are considered as `not functioning, removed or under maintenance`
+- Ads are immutable once used in campaign cannot be edited or deleted, and any change requires creating a new ad version
+
 
 <hr>
 

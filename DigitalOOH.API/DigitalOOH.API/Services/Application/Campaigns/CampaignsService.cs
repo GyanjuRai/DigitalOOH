@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using DigitalOOH.API.DataAccess.DBContext;
+﻿using DigitalOOH.API.DataAccess.DBContext;
 using DigitalOOH.API.Entities;
 using DigitalOOH.API.Interfaces.Application.Campaigns;
 using DigitalOOH.API.Models.Application;
 using DigitalOOH.API.Models.Shared.Response;
 using Microsoft.EntityFrameworkCore;
+using static DigitalOOH.API.Middlewares.GlobalExceptionMiddleware;
 
 namespace DigitalOOH.API.Services.Application.Campaigns
 {
@@ -76,16 +76,21 @@ namespace DigitalOOH.API.Services.Application.Campaigns
            _context.Campaigns.Add(campaigns);
             await _context.SaveChangesAsync();
 
-            return new CampaignsModel
-            {
-                Id = campaigns.Id,
-                Name = campaigns.Name,
-                StartTime = campaigns.StartTime,
-                EndTime = campaigns.EndTime,
-                Screens = string.Join(", ", campaigns.CampaignScreens.Select(c => c.Screen.Name)),
-                Ads = string.Join(", ", campaigns.CampaignAds.Select(a => a.Ad.Title)),
-                CreatedAt = campaigns.CreatedAt
-            };
+            var result = await _context.Campaigns
+                            .Where(c => c.Id == campaignId)
+                            .Select(c => new CampaignsModel
+                            {
+                                Id = c.Id,
+                                Name = c.Name,
+                                StartTime = c.StartTime,
+                                EndTime = c.EndTime,
+                                Screens = string.Join(", ", c.CampaignScreens.Select(cs => cs.Screen.Name)),
+                                Ads = string.Join(", ", c.CampaignAds.Select(ca => ca.Ad.Title)),
+                                CreatedAt = c.CreatedAt
+                            })
+                            .FirstAsync();
+
+            return result;
         }
 
         private async Task CheckOverLap(CampaignsCreateParam newCampaign)
@@ -104,7 +109,7 @@ namespace DigitalOOH.API.Services.Application.Campaigns
             
             if(overlap)
             {
-                throw new ValidationException("Campaign time overlaps with existing campaigns on the same screens.");
+                throw new BusinessException("Campaign time overlaps with existing campaigns on the same screens.");
             }
         }
 

@@ -1,9 +1,11 @@
-﻿using DigitalOOH.API.DataAccess.DBContext;
+﻿using System.Text.RegularExpressions;
+using DigitalOOH.API.DataAccess.DBContext;
 using DigitalOOH.API.Entities;
 using DigitalOOH.API.Interfaces.Application.Screens;
 using DigitalOOH.API.Models.Application;
 using DigitalOOH.API.Models.Shared.Response;
 using Microsoft.EntityFrameworkCore;
+using static DigitalOOH.API.Middlewares.GlobalExceptionMiddleware;
 
 namespace DigitalOOH.API.Services.Application.Screens
 {
@@ -58,6 +60,11 @@ namespace DigitalOOH.API.Services.Application.Screens
 
         public async Task<ScreensModel> ScreenAdd(ScreenParam param)
         {
+            if(!Regex.IsMatch(param.Resolution, @"^\d{3,4}x\d{3,4}$"))
+            {
+                throw new BusinessException("Invalid resolution format");
+            }
+
             var screen = new Screen
             {
                 Id = Guid.NewGuid(),
@@ -112,10 +119,12 @@ namespace DigitalOOH.API.Services.Application.Screens
 
         public async Task<PlayListResponse> GetPlaylist(Guid ScreenId, PlayListItemRequest param)
         {
+            var requestTime = param.At.ToUniversalTime();
+            
             var campaign = await _context.Campaigns
                 .Where(c =>
-                c.StartTime <= param.At &&
-                param.At < c.EndTime &&
+                c.StartTime <= requestTime &&
+                requestTime < c.EndTime &&
                 c.CampaignScreens.Any(cs => cs.ScreenId == ScreenId)
                 )
                 .Select(c => new PlayListResponse
