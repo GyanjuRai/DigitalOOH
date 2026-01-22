@@ -45,6 +45,7 @@ namespace DigitalOOH.API.Services.Application.Screens
         {
             var screens = await _context.Screens
                 .AsNoTracking()
+                .Where(s => s.IsActive)
                 .Select(s => new ScreenNameAndId 
                 { 
                     Name = s.Name,
@@ -63,7 +64,7 @@ namespace DigitalOOH.API.Services.Application.Screens
                 Name = param.Name,
                 Location = param.Location,
                 Resolution = param.Resolution,
-                IsActive = true,
+                IsActive = param.IsActive,
                 CreatedAt = DateTime.UtcNow
             };
             
@@ -77,7 +78,8 @@ namespace DigitalOOH.API.Services.Application.Screens
                 Location = screen.Location,
                 Resolution = screen.Resolution,
                 IsActive = screen.IsActive,
-                CreatedAt = screen.CreatedAt
+                CreatedAt = screen.CreatedAt,
+                UpdatedAt = screen.UpdatedAt
             };
         }
 
@@ -103,8 +105,68 @@ namespace DigitalOOH.API.Services.Application.Screens
                 Location = screen.Location,
                 Resolution = screen.Resolution,
                 IsActive = param.IsActive,
+                CreatedAt = screen.CreatedAt,
                 UpdatedAt = screen.UpdatedAt
             };
+        }
+
+        public async Task<PlayListResponse> GetPlaylist(Guid ScreenId, PlayListItemRequest param)
+        {
+            var campaign = await _context.Campaigns
+                .Where(c =>
+                c.StartTime <= param.At &&
+                param.At < c.EndTime &&
+                c.CampaignScreens.Any(cs => cs.ScreenId == ScreenId)
+                )
+                .Select(c => new PlayListResponse
+                {
+                    CampaignId = c.Id,
+                    Ads = c.CampaignAds
+                            .OrderBy(a => a.PlayOrder)
+                            .Select(a => new PlayListItem
+                            {
+                                AdId = a.AdId,
+                                MediaUrl = a.Ad.MediaUrl ?? "",
+                                DurationSeconds = a.Ad.DurationSeconds
+                            })
+                            .ToList()
+                })
+                .FirstOrDefaultAsync();
+
+            if (campaign == null) return new PlayListResponse
+            {
+                CampaignId = Guid.Empty,
+                Ads = []
+            };
+
+            return campaign;
+        }
+
+        public async Task LogProofOfPlay(ProofOfPlayRequest param)
+        {
+            var currentTime = param.StartAt;
+
+            var pops = new List<ProofOfPlay>();
+
+            foreach (var item in param.playList)
+            {
+
+                pops.Add(new ProofOfPlay
+                {
+                    Id = Guid.NewGuid(),
+                    ScreenId = param.ScreenId,
+                    AdId = item.AdId,
+                    CampaignId = param.CampaignId,
+                    PlayedAt = currentTime,
+                    CreatedAt = DateTime.UtcNow
+                });
+
+                currentTime = currentTime.AddSeconds(item.DurationSeconds);
+
+            }
+
+            _context.ProofOfPlays.AddRange(pops);
+            await _context.SaveChangesAsync();
         }
     }
 }
