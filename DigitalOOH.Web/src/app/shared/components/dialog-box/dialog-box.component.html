@@ -7,19 +7,126 @@
   </div>
 
   <div class="dialog-content">
-    <form [formGroup]="form" class="dialog-form">
-      <mat-form-field *ngFor="let field of fields" appearance="outline">
-        <mat-label>{{ field.label }}</mat-label>
-        <input 
-          matInput 
-          [type]="field.type || 'text'"
-          [formControlName]="field.name"
-          [placeholder]="field.placeholder || ''"
+    <form [formGroup]="formGroup" class="dialog-form">
+
+      <!-- NORMAL FIELDS -->
+      <ng-container *ngFor="let field of fields">
+
+          <!-- text, number, email -->
+          <mat-form-field
+            *ngIf="['text','number','email'].includes(field.type)"
+            appearance="outline"
+            floatLabel="always"
           >
-        <mat-error *ngIf="getFieldControl(field.name)?.hasError('required')">
-          {{ field.label }} is required
-        </mat-error>
-      </mat-form-field>
+            <mat-label>{{ field.label }}</mat-label>
+            <input
+              matInput
+              [type]="field.type"
+              [formControlName]="field.name"
+              [placeholder]="field.placeholder || ''"
+            />
+          </mat-form-field>
+
+          <!-- datetime -->
+          <mat-form-field
+            *ngIf="field.type === 'datetime'"
+            appearance="outline"
+            floatLabel="always"
+          >
+            <mat-label>{{ field.label }}</mat-label>
+            <input
+              matInput
+              type="datetime-local"
+              [formControlName]="field.name"
+            />
+          </mat-form-field>
+
+          <!-- select / status -->
+          <mat-form-field
+            *ngIf="['select','status'].includes(field.type)"
+            appearance="outline"
+            floatLabel="always"
+          >
+            <mat-label>{{ field.label }}</mat-label>
+            <mat-select [formControlName]="field.name">
+              <mat-option *ngFor="let opt of field.options" [value]="opt.value">
+                {{ opt.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- multiselect -->
+          <mat-form-field
+            *ngIf="field.type === 'mutiselect'"
+            appearance="outline"
+            floatLabel="always"
+          >
+            <mat-label>{{ field.label }}</mat-label>
+            <mat-select [formControlName]="field.name" multiple>
+              <mat-option *ngFor="let opt of field.options" [value]="opt.value">
+                {{ opt.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- file -->
+          <div *ngIf="field.type === 'file'" class="media-upload">
+            <label>{{ field.label }}</label>
+            <ul>
+              <li>jpg, jpeg, and png only supported.</li>
+              <li>mp4, and webm only supported.</li>
+              <li>Max file size: 10MB.</li>
+            </ul>
+            <input
+              type="file"
+              (change)="onFileSelected($event, field.name)"
+              accept="image/*,video/*"
+            />
+          </div>
+
+          <!-- Ad selector -->
+          <mat-form-field *ngIf="field.type === 'adsselector'" appearance="outline" >
+            <mat-label>Add Ad</mat-label>
+            <mat-select
+              (selectionChange)="addAd($event.value)"
+              [compareWith]="compareAd"
+            >
+              <mat-option *ngFor="let opt of field.options" [value]="opt">
+                {{ opt.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div 
+          *ngIf="field.type === 'adsselector'"
+          style="display: flex;
+                flex-direction: column;
+                max-height: 95px;        
+                overflow-y: auto;
+                border: 1px solid #dadde1;
+                border-radius: 8px;" 
+          >
+            <div [formArrayName]="field.name">
+              <div 
+              *ngFor="let ctrl of adsArray.controls; let i = index" 
+              [formGroupName]="i" 
+              style=" display: flex;
+                      align-items: center;
+                      gap: 12px;
+                      padding: 8px 10px;
+                      background: #f5f6f7;
+                    ">
+                  <span class="ad-name">{{ ctrl.value.adName }}</span>
+                  <input type="number" formControlName="playOrder" min="1" class="order-input">
+                  <button mat-icon-button color="warn" (click)="removeAd(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+              </div>
+            </div>
+          </div>
+
+      </ng-container>
+
     </form>
   </div>
 
@@ -27,11 +134,12 @@
     <button class="cancel-btn" mat-button (click)="onCancel()">
       {{ cancelLabel }}
     </button>
-    <button 
-      class="submit-btn" 
-      mat-button 
+    <button
+      class="submit-btn"
+      mat-button
       (click)="onSubmit()"
-      [disabled]="!form.valid">
+      [disabled]="!formGroup.valid"
+    >
       {{ submitLabel }}
     </button>
   </div>

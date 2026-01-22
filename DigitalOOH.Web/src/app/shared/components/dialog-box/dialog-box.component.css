@@ -1,19 +1,22 @@
+/* =========================
+   Dialog layout
+========================= */
+
 .dialog-container {
-  width: 500px;
-  max-width: 90vw;
-  background-color: #FFFFFF;
-  border-radius: 8px;
-  overflow: hidden;
+  width: auto;
+  background: #ffffff;
+  /* border-radius: 8px; */
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
 }
 
 .dialog-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 20px 24px;
-  border-bottom: 1px solid #DADDE1;
+  border-bottom: 1px solid #dadde1;
 }
 
 .dialog-title {
@@ -28,31 +31,37 @@
   height: 32px;
   border: none;
   background: transparent;
-  cursor: pointer;
   border-radius: 50%;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #65676b;
   transition: background-color 0.2s ease;
-  color: #65676B;
 }
 
 .close-button:hover {
-  background-color: #F5F6F7;
+  background-color: #f5f6f7;
   color: #050505;
 }
 
-.close-button mat-icon {
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
-}
+/* =========================
+   Content area
+========================= */
 
 .dialog-content {
   padding: 24px;
-  max-height: 60vh;
-  overflow-y: auto;
+  flex: 1;
 }
+
+/* IMPORTANT FIX */
+.dialog-content > form {
+  overflow: visible;
+}
+
+/* =========================
+   Form
+========================= */
 
 .dialog-form {
   display: flex;
@@ -60,40 +69,115 @@
   gap: 16px;
 }
 
-.dialog-form mat-form-field {
+mat-form-field {
   width: 100%;
 }
+
+/* =========================
+   Ads section 
+========================= */
+.ads-section {
+  margin-top: 12px;
+}
+
+.ad-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: #050505;
+}
+
+.order-input {
+  width: 70px;
+  padding: 6px 8px;
+  border: 1px solid #dadde1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.order-input:focus {
+  outline: none;
+  border-color: #1877f2;
+}
+
+
+/* =========================
+   Actions
+========================= */
 
 .dialog-actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
   padding: 16px 24px;
-  border-top: 1px solid #DADDE1;
-  background-color: #F5F6F7;
+  border-top: 1px solid #dadde1;
+  background: #f5f6f7;
 }
 
 .cancel-btn {
-  color: #65676B !important;
-  font-weight: 500;
+  color: #65676b !important;
 }
 
 .cancel-btn:hover {
-  background-color: #E4E6EB !important;
+  background-color: #e4e6eb !important;
 }
 
 .submit-btn {
-  background-color: #1877F2 !important;
-  color: #FFFFFF !important;
-  font-weight: 500;
+  background-color: #1877f2 !important;
+  color: #ffffff !important;
 }
 
 .submit-btn:hover:not(:disabled) {
-  background-color: #145DBF !important;
+  background-color: #145dbf !important;
 }
 
 .submit-btn:disabled {
-  background-color: #DADDE1 !important;
-  color: #8A8D91 !important;
-  cursor: not-allowed;
+  background-color: #dadde1 !important;
+  color: #8a8d91 !important;
+}
+
+/* =========================
+   File upload
+========================= */
+
+.media-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.media-upload label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #65676b;
+}
+
+.media-upload input[type="file"]::file-selector-button {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-right: 12px;
+  background: #1877f2;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.media-upload input[type="file"]::file-selector-button:hover {
+  background: #145dbf;
+}
+
+/* =========================
+   Material overrides (SAFE)
+========================= */
+
+mat-form-field {
+  --mdc-outlined-text-field-outline-color: #dadde1;
+  --mdc-outlined-text-field-focus-outline-color: #1877f2;
+  --mdc-outlined-text-field-label-text-color: #65676b;
+  --mdc-outlined-text-field-focus-label-text-color: #1877f2;
+  --mdc-outlined-text-field-input-text-color: #050505;
+}
+
+.mat-mdc-select-panel {
+  border-radius: 8px;
 }
